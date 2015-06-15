@@ -43,6 +43,7 @@ public class PlayersActivity extends AppCompatActivity {
      */
     ViewPager mViewPager;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -174,6 +175,7 @@ public class PlayersActivity extends AppCompatActivity {
 
         private static RecyclerView roundsList;
         private LinearLayoutManager roundsLayoutManager;
+        private RoundAdapter roundAdapter;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -203,9 +205,14 @@ public class PlayersActivity extends AppCompatActivity {
             roundsList = (RecyclerView) rootView.findViewById(R.id.rounds_list);
             roundsLayoutManager = new LinearLayoutManager(getActivity());
             roundsList.setLayoutManager(roundsLayoutManager);
-            roundsList.setAdapter(new RoundAdapter(encounters));
+
+            // TODO replace or update when content available
+            roundAdapter = new RoundAdapter(encounters);
+            roundsList.setAdapter(roundAdapter);
             return rootView;
         }
+
+
     }
 
     /**
@@ -285,6 +292,15 @@ public class PlayersActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
                     addPlayer(newPlayer);
+                }
+            });
+
+            final Button start = (Button) rootView.findViewById(R.id.start_button);
+            start.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AppContext.getInstance().addGame(new Game(currentPlayerAdapter.getPlayers()));
+                    // TODO start intent
                 }
             });
 

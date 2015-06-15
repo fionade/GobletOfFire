@@ -74,4 +74,9 @@ public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
         }
 
     }
+
+    public void setEncounters(ArrayList<Encounter> encounters) {
+        this.encounters = encounters;
+        notifyDataSetChanged();
+    }
 }

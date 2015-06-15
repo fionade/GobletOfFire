@@ -93,6 +93,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         notifyDataSetChanged();
     }
 
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
     private ArrayList<Player> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
