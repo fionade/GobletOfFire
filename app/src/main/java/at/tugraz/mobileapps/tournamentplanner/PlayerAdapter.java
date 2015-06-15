@@ -27,6 +27,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     private static final String TAG = "PlayerAdapter";
 
     private ArrayList<Player> players;
+    private PlayerAdapter counterpartAdapter;
 
     public PlayerAdapter(ArrayList<Player> players) {
         this.players = players;
@@ -35,8 +36,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     public PlayerAdapter(Context c, String filename) {
         // read from JSON
         try {
-            Resources resource = c.getResources();
-            InputStream in = resource.openRawResource(resource.getIdentifier(filename, "raw", c.getPackageName()));
+            InputStream in = c.getAssets().open(filename);
             this.players = readJsonStream(in);
             Collections.sort(this.players);
         } catch (Exception e) {
@@ -62,6 +62,10 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         return players.size();
     }
 
+    public void setCounterpartAdapter(PlayerAdapter counterpartAdapter) {
+        this.counterpartAdapter = counterpartAdapter;
+    }
+
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
         public TextView playerName;
@@ -74,11 +78,22 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
         @Override
         public void onClick(View view) {
+            if (counterpartAdapter != null) {
+                counterpartAdapter.addPlayer(players.get(getLayoutPosition()));
+                players.remove(getLayoutPosition());
+                notifyDataSetChanged();
+            }
             Log.d(TAG, "on click " + playerName.getText());
         }
     }
 
-    public ArrayList<Player> readJsonStream(InputStream in) throws IOException {
+    public void addPlayer(Player player) {
+        players.add(player);
+        Collections.sort(players);
+        notifyDataSetChanged();
+    }
+
+    private ArrayList<Player> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
             return readMessagesArray(reader);
@@ -89,7 +104,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     }
 
 
-    public ArrayList<Player> readMessagesArray(JsonReader reader) throws IOException {
+    private ArrayList<Player> readMessagesArray(JsonReader reader) throws IOException {
         ArrayList<Player> players = new ArrayList();
 
         reader.beginArray();
@@ -100,7 +115,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         return players;
     }
 
-    public Player readPlayer(JsonReader reader) throws IOException {
+    private Player readPlayer(JsonReader reader) throws IOException {
         String playerName = null;
 
         reader.beginObject();

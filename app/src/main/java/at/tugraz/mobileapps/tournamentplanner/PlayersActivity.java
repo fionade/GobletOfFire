@@ -16,11 +16,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 
@@ -203,7 +207,9 @@ public class PlayersActivity extends AppCompatActivity {
         protected RecyclerView.LayoutManager currentLayoutManager;
         protected RecyclerView.LayoutManager recentLayoutManager;
 
-        private ArrayList<Player> recentPlayers = new ArrayList();
+        private PlayerAdapter currentPlayerAdapter;
+        private PlayerAdapter recentPlayerAdapter;
+
         private ArrayList<Player> currentPlayers = new ArrayList();
 
         /**
@@ -240,15 +246,37 @@ public class PlayersActivity extends AppCompatActivity {
             currentPlayersList.setLayoutManager(currentLayoutManager);
             recentPlayersList.setLayoutManager(recentLayoutManager);
 
-            currentPlayersList.setAdapter(new PlayerAdapter(currentPlayers));
-            recentPlayersList.setAdapter(new PlayerAdapter(recentPlayers));
-//            for (String s : getActivity().fileList()) {
-//                Log.d(TAG, s);
-//            }
-//
-//            recentPlayersList.setAdapter(new PlayerAdapter(getActivity(), "players.json"));
+            currentPlayerAdapter = new PlayerAdapter(currentPlayers);
+            recentPlayerAdapter = new PlayerAdapter(getActivity(), "players.json");
+            currentPlayerAdapter.setCounterpartAdapter(recentPlayerAdapter);
+            recentPlayerAdapter.setCounterpartAdapter(currentPlayerAdapter);
+            currentPlayersList.setAdapter(currentPlayerAdapter);
+            recentPlayersList.setAdapter(recentPlayerAdapter);
 
+            final EditText newPlayer = (EditText) rootView.findViewById(R.id.new_player_name);
+            newPlayer.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+                    boolean handled = false;
+                    if (actionId == EditorInfo.IME_ACTION_GO) {
+                        Log.d(TAG, newPlayer.getText().toString());
+                        currentPlayerAdapter.addPlayer(new Player(newPlayer.getText().toString()));
+                        newPlayer.setText("");
+                        handled = true;
+                    }
+                    return handled;
+                }
+            });
 
+            final Button add = (Button) rootView.findViewById(R.id.add_button);
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Log.d(TAG, newPlayer.getText().toString());
+                    currentPlayerAdapter.addPlayer(new Player(newPlayer.getText().toString()));
+                    newPlayer.setText("");
+                }
+            });
 
             return rootView;
         }
@@ -256,12 +284,6 @@ public class PlayersActivity extends AppCompatActivity {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
-
-            // init dataset
-            recentPlayers.add(new Player("Stephan"));
-            recentPlayers.add(new Player("Fiona"));
-
-            currentPlayers.add(new Player("Dorien"));
 
         }
     }
