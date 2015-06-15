@@ -257,14 +257,10 @@ public class PlayersActivity extends AppCompatActivity {
             newPlayer.setOnEditorActionListener(new TextView.OnEditorActionListener() {
                 @Override
                 public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                    boolean handled = false;
-                    if (actionId == EditorInfo.IME_ACTION_GO) {
-                        Log.d(TAG, newPlayer.getText().toString());
-                        currentPlayerAdapter.addPlayer(new Player(newPlayer.getText().toString()));
-                        newPlayer.setText("");
-                        handled = true;
+                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                        return addPlayer(newPlayer);
                     }
-                    return handled;
+                    return false;
                 }
             });
 
@@ -272,9 +268,7 @@ public class PlayersActivity extends AppCompatActivity {
             add.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Log.d(TAG, newPlayer.getText().toString());
-                    currentPlayerAdapter.addPlayer(new Player(newPlayer.getText().toString()));
-                    newPlayer.setText("");
+                    addPlayer(newPlayer);
                 }
             });
 
@@ -285,6 +279,17 @@ public class PlayersActivity extends AppCompatActivity {
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
+        }
+
+        private boolean addPlayer(EditText newPlayer) {
+            String name = newPlayer.getText().toString();
+            if (!name.trim().isEmpty()) {
+                Log.d(TAG, name);
+                currentPlayerAdapter.addPlayer(new Player(newPlayer.getText().toString()));
+                newPlayer.setText("");
+                return true;
+            }
+            return false;
         }
     }
 
