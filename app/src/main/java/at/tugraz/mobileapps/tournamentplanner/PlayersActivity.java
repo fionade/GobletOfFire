@@ -3,11 +3,8 @@ package at.tugraz.mobileapps.tournamentplanner;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -15,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -101,8 +97,11 @@ public class PlayersActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            if (position == 0) {
-                return PlayerSelectionFragment.newInstance(1);
+            switch(position) {
+                case 0:
+                    return PlayerSelectionFragment.newInstance(1);
+                case 1:
+                    return RoundsFragment.newInstance(2);
             }
             return PlaceholderFragment.newInstance(position + 1);
         }
@@ -165,7 +164,7 @@ public class PlayersActivity extends AppCompatActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PointsFragment extends Fragment {
+    public static class RoundsFragment extends Fragment {
 
         /**
          * The fragment argument representing the section number for this
@@ -173,25 +172,38 @@ public class PlayersActivity extends AppCompatActivity {
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
 
+        private static RecyclerView roundsList;
+        private LinearLayoutManager roundsLayoutManager;
+
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PointsFragment newInstance(int sectionNumber) {
-            PointsFragment fragment = new PointsFragment();
+        public static RoundsFragment newInstance(int sectionNumber) {
+            RoundsFragment fragment = new RoundsFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
-        public PointsFragment() {
+        public RoundsFragment() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_points, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_rounds, container, false);
+
+            // TODO replace
+            ArrayList<Encounter> encounters = new ArrayList();
+            encounters.add(new Encounter(new Player("Name 1"), new Player("Name 2")));
+            encounters.add(new Encounter(new Player("Name 3"), new Player("Name 4")));
+
+            roundsList = (RecyclerView) rootView.findViewById(R.id.rounds_list);
+            roundsLayoutManager = new LinearLayoutManager(getActivity());
+            roundsList.setLayoutManager(roundsLayoutManager);
+            roundsList.setAdapter(new RoundAdapter(encounters));
             return rootView;
         }
     }

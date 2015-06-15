@@ -15,13 +15,15 @@
         android:background="@drawable/customborder"
         android:layout_marginLeft="0dp" />
 
-    <Switch
+
+    <SeekBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/winner"
+        android:id="@+id/winner_bar"
         android:layout_weight="1.5"
-        android:enabled="false" />
-
+        android:max="2"
+        android:longClickable="false"
+        android:progress="1" />
 
     <TextView
         android:id="@+id/round_player2"
