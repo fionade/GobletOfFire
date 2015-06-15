@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">TournamentPlanner</string>
+
+    <string name="title_section1">Players</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="name">Name</string>
+    <string name="add_player">Add player</string>
+    <string name="recent_players">Recent Players</string>
+    <string name="current_players">Selected Players</string>
+    <string name="add_button">Add</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

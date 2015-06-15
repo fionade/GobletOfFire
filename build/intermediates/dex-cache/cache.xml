@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/pre-dexed/debug/classes-136f317f778cafb1814f0e143b6f232510073f7b.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/pre-dexed/debug/classes-b26b5ea37a24eef90652ed1e2b74784dd860343c.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-0a1f7c380e485cc66c365a0a4eb14bd6ebd1aaa2.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="5b37cf49773f7f17aca9830efd3053b0cac56728">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/pre-dexed/debug/classes-6724c5e4f4c32526f053d430f3e3237671c946f9.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/libs/internal_impl-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="57f2ab85c164ff1676ec64dee787981c046fab79">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/pre-dexed/debug/internal_impl-22.2.0-a2dd776b3e769a374174900d8fc96749ad12a965.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/pre-dexed/debug/classes-a733f3ad92ac07eb7e249f36b652eb1b7110df5a.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Programmieren/android-sdk-macosx/extras/android/m2repository/com/android/support/support-annotations/22.2.0/support-annotations-22.2.0.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="66b42a1f3eb7676070b7ef7f14b603483aecbee1">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/pre-dexed/debug/support-annotations-22.2.0-6f24ce5b49ce8cacec587a4f2ce6edc3353ebee4.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="97f7e239e86ef994de894818fdd8a71d2e89d6aa">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/pre-dexed/debug/classes-92325b3dbf4e86ea5976d64ad593c2fdedddc3d8.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/pre-dexed/debug/classes-3ef4a24274c99cfdde3de7aa88291207b6d5608b.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/libs/robotium-solo-5.4.1.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="6ab178c50fa9238e43eeb7ac6a07efd516e8fe4b">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/GobletOfFire/app/build/intermediates/pre-dexed/debug/robotium-solo-5.4.1-39c75d233205e813d898fe1139761cfa1fa8671d.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/exploded-aar/com.android.support/support-v4/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="1ee588ff2c4daf7b97c1cbf922a6c7f027285c2f">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/pre-dexed/debug/classes-e14ba60fad974c51fb52a1658c93bd9feb9bdf00.jar" />
+    </item>
+    <item
+        jar="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/22.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="22.0.1"
+        sha1="73753982da6bde518f3a4c6b372749981d14d1a0">
+        <dex dex="/Users/fiona/Uni/Master/AndroidStudio/TournamentPlanner/app/build/intermediates/pre-dexed/debug/classes-465e9e05fdc5942f68efc46684ab67abe2901618.jar" />
+    </item>
+
+</items>
