@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
 
-    private static final String TAG = "RoundAdaper";
+    private static final String TAG = "RoundAdapter";
 
     private ArrayList<Encounter> encounters;
 

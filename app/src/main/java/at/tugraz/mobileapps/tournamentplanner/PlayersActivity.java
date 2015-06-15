@@ -250,6 +250,8 @@ public class PlayersActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_players, container, false);
 
+            Log.d(TAG, "onCreateView");
+
             currentPlayersList = (RecyclerView) rootView.findViewById(R.id.current_players);
             recentPlayersList = (RecyclerView) rootView.findViewById(R.id.recent_players);
 
@@ -258,10 +260,12 @@ public class PlayersActivity extends AppCompatActivity {
             currentPlayersList.setLayoutManager(currentLayoutManager);
             recentPlayersList.setLayoutManager(recentLayoutManager);
 
-            currentPlayerAdapter = new PlayerAdapter(currentPlayers);
-            recentPlayerAdapter = new PlayerAdapter(getActivity(), "players.json");
-            currentPlayerAdapter.setCounterpartAdapter(recentPlayerAdapter);
-            recentPlayerAdapter.setCounterpartAdapter(currentPlayerAdapter);
+            if (currentPlayerAdapter == null || recentPlayerAdapter == null) {
+                currentPlayerAdapter = new PlayerAdapter(currentPlayers);
+                recentPlayerAdapter = new PlayerAdapter(getActivity(), "players.json");
+                currentPlayerAdapter.setCounterpartAdapter(recentPlayerAdapter);
+                recentPlayerAdapter.setCounterpartAdapter(currentPlayerAdapter);
+            }
             currentPlayersList.setAdapter(currentPlayerAdapter);
             recentPlayersList.setAdapter(recentPlayerAdapter);
 
