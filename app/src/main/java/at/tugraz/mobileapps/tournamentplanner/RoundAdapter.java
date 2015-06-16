@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -35,6 +36,11 @@ public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
         Encounter encounter = encounters.get(position);
         holder.round_player1.setText(encounter.getPlayer1().getName());
         holder.round_player2.setText(encounter.getPlayer2().getName());
+
+        if (position != 0) {
+            holder.round_title.setVisibility(View.GONE);
+            holder.round_header.setVisibility(View.GONE);
+        }
 
         holder.score.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -67,11 +73,17 @@ public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
         public TextView round_player2;
         public SeekBar score;
 
+        public TextView round_title;
+        public LinearLayout round_header;
+
         public ViewHolder(View itemView) {
             super(itemView);
             round_player1 = (TextView)itemView.findViewById(R.id.round_player1);
             round_player2 = (TextView)itemView.findViewById(R.id.round_player2);
             score = (SeekBar)itemView.findViewById(R.id.winner_bar);
+
+            round_title = (TextView) itemView.findViewById(R.id.title_round);
+            round_header = (LinearLayout) itemView.findViewById(R.id.header_round);
 
         }
 
