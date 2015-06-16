@@ -18,9 +18,9 @@ public class AppContext {
         games = new ArrayList<>();
     }
 
-    public static AppContext getInstance() {
+    public static synchronized AppContext getInstance() {
         if (instance == null) {
-            return new AppContext();
+            instance = new AppContext();
         }
         return instance;
     }

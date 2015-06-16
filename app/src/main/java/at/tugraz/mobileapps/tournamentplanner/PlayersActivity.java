@@ -43,12 +43,16 @@ public class PlayersActivity extends AppCompatActivity {
      */
     ViewPager mViewPager;
 
+    protected int currentGameId;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_players);
 
+        Bundle b = getIntent().getExtras();
+        currentGameId = b.getInt("gameIndex");
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
@@ -100,7 +104,7 @@ public class PlayersActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position) {
                 case 0:
-                    return PlayerSelectionFragment.newInstance(1);
+                    return RoundsFragment.newInstance(1);
                 case 1:
                     return RoundsFragment.newInstance(2);
             }
@@ -109,8 +113,7 @@ public class PlayersActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 3;
+            return 2;
         }
 
         @Override
@@ -197,17 +200,11 @@ public class PlayersActivity extends AppCompatActivity {
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_rounds, container, false);
 
-            // TODO replace
-            ArrayList<Encounter> encounters = new ArrayList();
-            encounters.add(new Encounter(new Player("Name 1"), new Player("Name 2"), 0));
-            encounters.add(new Encounter(new Player("Name 3"), new Player("Name 4"), 0));
-
             roundsList = (RecyclerView) rootView.findViewById(R.id.rounds_list);
             roundsLayoutManager = new LinearLayoutManager(getActivity());
             roundsList.setLayoutManager(roundsLayoutManager);
 
-            // TODO replace or update when content available
-            roundAdapter = new RoundAdapter(encounters);
+            roundAdapter = new RoundAdapter(AppContext.getInstance().getGames().get(0).getEncounters().get(0));
             roundsList.setAdapter(roundAdapter);
             return rootView;
         }
@@ -215,115 +212,6 @@ public class PlayersActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * The player selection fragment.
-     */
-    public static class PlayerSelectionFragment extends Fragment {
 
-        private static RecyclerView currentPlayersList;
-        private static RecyclerView recentPlayersList;
-
-        protected RecyclerView.LayoutManager currentLayoutManager;
-        protected RecyclerView.LayoutManager recentLayoutManager;
-
-        private PlayerAdapter currentPlayerAdapter;
-        private PlayerAdapter recentPlayerAdapter;
-
-        private ArrayList<Player> currentPlayers = new ArrayList();
-
-        /**
-         * The fragment argument representing the section number for this
-         * fragment.
-         */
-        private static final String ARG_SECTION_NUMBER = "section_number";
-
-        /**
-         * Returns a new instance of this fragment for the given section
-         * number.
-         */
-        public static PlayerSelectionFragment newInstance(int sectionNumber) {
-            PlayerSelectionFragment fragment = new PlayerSelectionFragment();
-            Bundle args = new Bundle();
-            args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-            fragment.setArguments(args);
-            return fragment;
-        }
-
-        public PlayerSelectionFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, final ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_players, container, false);
-
-            Log.d(TAG, "onCreateView");
-
-            currentPlayersList = (RecyclerView) rootView.findViewById(R.id.current_players);
-            recentPlayersList = (RecyclerView) rootView.findViewById(R.id.recent_players);
-
-            currentLayoutManager = new LinearLayoutManager(getActivity());
-            recentLayoutManager = new LinearLayoutManager(getActivity());
-            currentPlayersList.setLayoutManager(currentLayoutManager);
-            recentPlayersList.setLayoutManager(recentLayoutManager);
-
-            if (currentPlayerAdapter == null || recentPlayerAdapter == null) {
-                currentPlayerAdapter = new PlayerAdapter(currentPlayers);
-                recentPlayerAdapter = new PlayerAdapter(getActivity(), "players.json");
-                currentPlayerAdapter.setCounterpartAdapter(recentPlayerAdapter);
-                recentPlayerAdapter.setCounterpartAdapter(currentPlayerAdapter);
-            }
-            currentPlayersList.setAdapter(currentPlayerAdapter);
-            recentPlayersList.setAdapter(recentPlayerAdapter);
-
-            final EditText newPlayer = (EditText) rootView.findViewById(R.id.new_player_name);
-            newPlayer.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
-                        return addPlayer(newPlayer);
-                    }
-                    return false;
-                }
-            });
-
-            final Button add = (Button) rootView.findViewById(R.id.add_button);
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    addPlayer(newPlayer);
-                }
-            });
-
-            final Button start = (Button) rootView.findViewById(R.id.start_button);
-            start.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AppContext context = AppContext.getInstance();
-                    context.addGame(new Game(currentPlayerAdapter.getPlayers(), context.getGameCount()));
-                    // TODO start intent
-                }
-            });
-
-            return rootView;
-        }
-
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-
-        }
-
-        private boolean addPlayer(EditText newPlayer) {
-            String name = newPlayer.getText().toString();
-            if (!name.trim().isEmpty()) {
-                Log.d(TAG, name);
-                currentPlayerAdapter.addPlayer(new Player(newPlayer.getText().toString()));
-                newPlayer.setText("");
-                return true;
-            }
-            return false;
-        }
-    }
 
 }
