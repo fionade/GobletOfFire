@@ -56,6 +56,23 @@ public class PlayersActivity extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                mSectionsPagerAdapter.pointsFragment.pointsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
     }
 
 
@@ -81,6 +98,10 @@ public class PlayersActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void notifyChanged() {
+
+    }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -88,8 +109,13 @@ public class PlayersActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        private RoundsFragment roundsFragment;
+        private PointsFragment pointsFragment;
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            roundsFragment = RoundsFragment.newInstance(1);
+            pointsFragment = PointsFragment.newInstance(2);
         }
 
         @Override
@@ -98,9 +124,9 @@ public class PlayersActivity extends AppCompatActivity {
             // Return a PlaceholderFragment (defined as a static inner class below).
             switch(position) {
                 case 0:
-                    return RoundsFragment.newInstance(1);
+                    return roundsFragment;
                 case 1:
-                    return PointsFragment.newInstance(2);
+                    return pointsFragment;
             }
             return PointsFragment.newInstance(position + 1);
         }
@@ -123,6 +149,8 @@ public class PlayersActivity extends AppCompatActivity {
             }
             return null;
         }
+
+
     }
 
 
