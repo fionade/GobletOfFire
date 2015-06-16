@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -42,12 +43,17 @@ public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
             holder.round_header.setVisibility(View.GONE);
         }
 
+        if (position != encounters.size() - 1) {
+            holder.finish_button.setVisibility(View.GONE);
+        }
+
         holder.score.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int score, boolean b) {
                 Log.d(TAG, "Score set: " + score);
                 // TODO highlight colour for player
                 encounters.get(position).setScore(score);
+                AppContext c = AppContext.getInstance();
             }
 
             @Override
@@ -76,6 +82,8 @@ public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
         public TextView round_title;
         public LinearLayout round_header;
 
+        public Button finish_button;
+
         public ViewHolder(View itemView) {
             super(itemView);
             round_player1 = (TextView)itemView.findViewById(R.id.round_player1);
@@ -84,6 +92,8 @@ public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
 
             round_title = (TextView) itemView.findViewById(R.id.title_round);
             round_header = (LinearLayout) itemView.findViewById(R.id.header_round);
+
+            finish_button = (Button) itemView.findViewById(R.id.finished_button);
 
         }
 

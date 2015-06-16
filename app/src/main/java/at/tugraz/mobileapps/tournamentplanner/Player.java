@@ -32,4 +32,11 @@ public class Player implements Comparable<Player> {
             wins.put(gameId, difference);
         }
     }
+
+    public int getScoreInGame(int gameId) {
+        if (wins.containsKey(gameId)) {
+            return wins.get(gameId);
+        }
+        return 0;
+    }
 }

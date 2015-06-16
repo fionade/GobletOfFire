@@ -37,7 +37,7 @@ public class PlayersActivity extends AppCompatActivity {
      */
     ViewPager mViewPager;
 
-    protected int currentGameId;
+    protected static int currentGameId;
 
 
     @Override
@@ -100,9 +100,9 @@ public class PlayersActivity extends AppCompatActivity {
                 case 0:
                     return RoundsFragment.newInstance(1);
                 case 1:
-                    return RoundsFragment.newInstance(2);
+                    return PointsFragment.newInstance(2);
             }
-            return PlaceholderFragment.newInstance(position + 1);
+            return PointsFragment.newInstance(position + 1);
         }
 
         @Override
@@ -125,10 +125,15 @@ public class PlayersActivity extends AppCompatActivity {
         }
     }
 
+
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    public static class PointsFragment extends Fragment {
+
+        private static RecyclerView pointsList;
+        private LinearLayoutManager pointsLayoutManager;
+        private PointsAdapter pointsAdapter;
 
         /**
          * The fragment argument representing the section number for this
@@ -140,24 +145,34 @@ public class PlayersActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
+        public static PointsFragment newInstance(int sectionNumber) {
+            PointsFragment fragment = new PointsFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
             fragment.setArguments(args);
             return fragment;
         }
 
-        public PlaceholderFragment() {
+        public PointsFragment() {
         }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_placeholder, container, false);
+            View rootView = inflater.inflate(R.layout.fragment_points, container, false);
+
+            pointsList = (RecyclerView) rootView.findViewById(R.id.points_list);
+            pointsLayoutManager = new LinearLayoutManager(getActivity());
+            pointsList.setLayoutManager(pointsLayoutManager);
+
+            pointsAdapter = new PointsAdapter(currentGameId);
+            pointsList.setAdapter(pointsAdapter);
+
             return rootView;
         }
+
     }
+
 
     /**
      * A placeholder fragment containing a simple view.

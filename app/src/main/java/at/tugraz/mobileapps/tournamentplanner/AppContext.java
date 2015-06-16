@@ -3,6 +3,7 @@ package at.tugraz.mobileapps.tournamentplanner;
 import android.support.v7.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * Created by fiona on 15.06.15.
@@ -10,7 +11,6 @@ import java.util.ArrayList;
 public class AppContext {
 
     private static AppContext instance;
-
 
     private ArrayList<Game> games;
 
