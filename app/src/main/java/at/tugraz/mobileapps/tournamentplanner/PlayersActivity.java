@@ -199,8 +199,8 @@ public class PlayersActivity extends AppCompatActivity {
 
             // TODO replace
             ArrayList<Encounter> encounters = new ArrayList();
-            encounters.add(new Encounter(new Player("Name 1"), new Player("Name 2")));
-            encounters.add(new Encounter(new Player("Name 3"), new Player("Name 4")));
+            encounters.add(new Encounter(new Player("Name 1"), new Player("Name 2"), 0));
+            encounters.add(new Encounter(new Player("Name 3"), new Player("Name 4"), 0));
 
             roundsList = (RecyclerView) rootView.findViewById(R.id.rounds_list);
             roundsLayoutManager = new LinearLayoutManager(getActivity());
@@ -253,7 +253,7 @@ public class PlayersActivity extends AppCompatActivity {
         }
 
         @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
+        public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_players, container, false);
 
@@ -299,7 +299,8 @@ public class PlayersActivity extends AppCompatActivity {
             start.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    AppContext.getInstance().addGame(new Game(currentPlayerAdapter.getPlayers()));
+                    AppContext context = AppContext.getInstance();
+                    context.addGame(new Game(currentPlayerAdapter.getPlayers(), context.getGameCount()));
                     // TODO start intent
                 }
             });

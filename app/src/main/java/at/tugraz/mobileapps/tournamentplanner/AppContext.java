@@ -36,4 +36,8 @@ public class AppContext {
     public ArrayList<Game> getGames() {
         return games;
     }
+
+    public int getGameCount() {
+        return games.size();
+    }
 }

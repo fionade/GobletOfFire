@@ -31,16 +31,17 @@ public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, final int position) {
         Encounter encounter = encounters.get(position);
         holder.round_player1.setText(encounter.getPlayer1().getName());
         holder.round_player2.setText(encounter.getPlayer2().getName());
 
         holder.score.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
-            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                // TODO: set game status for this round
-                Log.d(TAG, "Player " + (i + 1) + " won.");
+            public void onProgressChanged(SeekBar seekBar, int score, boolean b) {
+                Log.d(TAG, "Score set: " + score);
+                // TODO highlight colour for player
+                encounters.get(position).setScore(score);
             }
 
             @Override
@@ -71,6 +72,7 @@ public class RoundAdapter extends RecyclerView.Adapter<RoundAdapter.ViewHolder>{
             round_player1 = (TextView)itemView.findViewById(R.id.round_player1);
             round_player2 = (TextView)itemView.findViewById(R.id.round_player2);
             score = (SeekBar)itemView.findViewById(R.id.winner_bar);
+
         }
 
     }
