@@ -212,6 +212,9 @@ public class SettingsActivity extends AppCompatActivity {
                     int index = context.getGameCount();
                     context.addGame(new Game(currentPlayerAdapter.getPlayers(), index));
 
+                    // TODO write recent players to json
+                    recentPlayerAdapter.writeJson(getActivity(), "players.json");
+
                     Bundle b = new Bundle();
 
                     b.putInt("gameIndex", index);

@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.util.JsonReader;
 import android.util.JsonToken;
+import android.util.JsonWriter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +14,12 @@ import android.widget.TextView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -100,7 +104,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     private ArrayList<Player> readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
-            return readMessagesArray(reader);
+            return readPlayersArray(reader);
         }
         finally{
             reader.close();
@@ -108,7 +112,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     }
 
 
-    private ArrayList<Player> readMessagesArray(JsonReader reader) throws IOException {
+    private ArrayList<Player> readPlayersArray(JsonReader reader) throws IOException {
         ArrayList<Player> players = new ArrayList();
 
         reader.beginArray();
@@ -135,4 +139,38 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
         reader.endObject();
         return new Player(playerName);
     }
+
+    public void writeJson(Context c, String filename) {
+        try {
+            OutputStream out = c.openFileOutput(filename, Context.MODE_PRIVATE);
+            List allRecent = new ArrayList(players);
+            allRecent.addAll(counterpartAdapter.getPlayers());
+            writeJsonStream(out, allRecent);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void writeJsonStream(OutputStream out, List<Player> players) throws IOException {
+        JsonWriter writer = new JsonWriter(new OutputStreamWriter(out, "UTF-8"));
+        writer.setIndent("  ");
+        writePlayersArray(writer, players);
+        writer.close();
+    }
+
+    private void writePlayersArray(JsonWriter writer, List<Player> players) throws IOException {
+        writer.beginArray();
+        for (Player player : players) {
+            writePlayer(writer, player);
+        }
+        writer.endArray();
+    }
+
+    private void writePlayer(JsonWriter writer, Player player) throws IOException {
+        writer.beginObject();
+        writer.name("name").value(player.getName());
+        writer.endObject();
+    }
+
 }
